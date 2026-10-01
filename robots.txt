@@ -1,5 +1,5 @@
 User-Agent: *
 Allow: /
 
-Host: https://bekiremreulcay-pixel.github.io
-Sitemap: https://bekiremreulcay-pixel.github.io/sitemap.xml
+Host: https://hattizerin.com
+Sitemap: https://hattizerin.com/sitemap.xml
