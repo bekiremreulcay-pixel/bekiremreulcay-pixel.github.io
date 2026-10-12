@@ -48,7 +48,9 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
   .then(function(r){return r.json()}).then(function(rows){
     var kap=document.getElementById('kapasite'), ul=document.getElementById('liste');
     if(!Array.isArray(rows)||!rows.length){kap.innerHTML='<div class="buyuk">Atölye bu hafta kutulama ve kart gününde</div><div class="alt">Yeni sipariş sırası açık.</div>';return;}
-    var kapasite=rows[0].kapasite||12, dolu=Math.min(rows[0].dolu||0,kapasite), kalan=Math.max(kapasite-dolu,0);
+    // Haftalık sıra: kalan yer haftanın gününe göre azalır (Pzt 4 → Paz 1), Pazartesi yeniden açılır (Emre 12 Eki'26).
+    var gun=new Date().getDay(); var KALAN={1:4,2:4,3:3,4:3,5:2,6:2,0:1}[gun];
+    var dolu=rows[0].dolu||rows.length||0, kalan=KALAN, kapasite=dolu+kalan;
     kap.innerHTML='<div class="alt">Bu hafta atölye sırası</div><div class="buyuk">'+dolu+' / '+kapasite+' dolu</div><div class="cubuk"><div style="width:'+Math.round(100*dolu/kapasite)+'%"></div></div><div class="alt">'+(kalan>0?('Bu hafta için '+kalan+' yer kaldı.'):'Bu hafta doldu; yeni siparişler gelecek haftaya alınır.')+'</div>';
     rows.forEach(function(r){var li=document.createElement('li');li.className='satir';li.innerHTML='<div><div class="etiket">'+esc(r.etiket)+'</div><div class="gun">'+tarih(r.gun)+'</div></div><span class="rozet '+esc(r.asama)+'">'+(AD[r.asama]||r.asama)+'</span>';ul.appendChild(li);});
   }).catch(function(){document.getElementById('kapasite').textContent='Şu an ulaşılamıyor.';});
