@@ -51,7 +51,7 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
     ['yazi_hazir','Yazınız hazırlandı','Hat sanatı hocamız yazıyı tamamladı, atölye sırasına girdi.'],
     ['uretimde','Üretimde','Yazınız 925 ayar gümüşe / altına işleniyor.'],
     ['bodrum','Atölyeden çıktı, Bodrum\'da hazırlanıyor','Kutusu, el yazısı kartı ve sertifikası ekleniyor.'],
-    ['kargoda','Kargoda','Takip numarası aşağıda.']
+    ['kargoda','Kargoda','Takip numarası geldiğinde burada görünecek.']
   ];
   var k=new URLSearchParams(location.search).get('k');
   var ic=document.getElementById('icerik');
@@ -66,7 +66,7 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
     if(d.asama==='hazir')h+='<div class="sira">Ürününüz hazır, bugün kargoya veriliyor.</div>';
     else if(asama!=='kargoda'&&d.sira)h+='<div class="sira">Atölye sırası: '+d.sira+'. sıradasınız.</div>';
     h+='<ul class="adimlar">';
-    ADIMLAR.forEach(function(a,i){var c=i<idx?'oldu':(i===idx?'simdi':'');h+='<li class="adim '+c+'"><div class="nokta">'+(i<idx?'✓':(i+1))+'</div><div><div class="ad">'+a[1]+'</div>'+(i===idx?'<div class="aciklama">'+a[2]+'</div>':'')+'</div></li>'});
+    ADIMLAR.forEach(function(a,i){var c=i<idx?'oldu':(i===idx?'simdi':'');var ac=a[2];if(a[0]==='kargoda'&&d.takip_no)ac='Takip numarası aşağıda.';h+='<li class="adim '+c+'"><div class="nokta">'+(i<idx?'✓':(i+1))+'</div><div><div class="ad">'+a[1]+'</div>'+(i===idx?'<div class="aciklama">'+ac+'</div>':'')+'</div></li>'});
     h+='</ul>';
     if(d.takip_no){h+='<div class="kargo">'+esc(d.kargo_firma||'Kargo')+' takip no: <b>'+esc(d.takip_no)+'</b>'+(d.kargo_link?' · <a href="'+esc(d.kargo_link)+'" target="_blank" rel="noopener">Takip et</a>':'')+'</div>';}
     if(d.tahmini_teslim&&!d.takip_no)h+='<div class="not">Tahmini teslim: '+tarih(d.tahmini_teslim)+'</div>';
