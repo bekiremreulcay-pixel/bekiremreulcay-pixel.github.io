@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#211b15">
+<title>Atölye Defteri · Hatt-ı Zerin</title>
+<meta name="description" content="Hatt-ı Zerin atölyesinde bu hafta üretilen isimli takılar ve atölye sırası.">
+<link rel="icon" href="/icon.png">
+<style>
+:root{--krem:#f6efe0;--kagit:#fffbf2;--cizgi:#dccfae;--altin:#b3862b;--altin2:#8a6519;--altin3:#f3e6bd;--murekkep:#211b15;--murekkep2:#4f453a;--soluk:#85796a;--yesil:#2b7a4b;--yesil2:#dff0e5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--krem);color:var(--murekkep);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh}
+h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
+.ust{background:var(--murekkep);color:var(--krem);padding:calc(14px + env(safe-area-inset-top)) 16px 14px;border-bottom:3px solid var(--altin);text-align:center}
+.marka{font-family:Georgia,serif;font-size:12px;letter-spacing:.22em;color:var(--altin3)}
+.ust h1{font-size:22px;margin-top:4px}
+.kap{max-width:560px;margin:0 auto;padding:18px 16px 60px}
+.kapasite{background:var(--kagit);border:1px solid var(--cizgi);border-radius:18px;padding:16px;text-align:center}
+.kapasite .buyuk{font-family:Georgia,serif;font-size:30px;color:var(--altin2)}
+.cubuk{height:10px;background:#eee4cc;border-radius:999px;overflow:hidden;margin:10px 0 6px}
+.cubuk>div{height:100%;background:var(--altin)}
+.kapasite .alt{color:var(--soluk);font-size:14px}
+.liste{list-style:none;margin:16px 0 0;padding:0}
+.satir{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 14px;background:var(--kagit);border:1px solid var(--cizgi);border-radius:14px;margin-top:8px}
+.satir .etiket{font-family:Georgia,serif;font-size:17px}
+.satir .gun{color:var(--soluk);font-size:13px}
+.rozet{flex:none;padding:4px 10px;border-radius:999px;font-size:13px;font-weight:700;background:var(--altin3);color:var(--altin2);border:1px solid #e1cf93;white-space:nowrap}
+.rozet.uretimde{background:#e7ecf6;color:#2f4a86;border-color:#c5d0e8}
+.rozet.bodrum,.rozet.hazir{background:var(--yesil2);color:var(--yesil);border-color:#b9dcc6}
+.rozet.kargoda{background:#ece8e0;color:var(--murekkep2);border-color:#d6cfc0}
+.not{margin-top:18px;color:var(--murekkep2);font-size:15px;text-align:center}
+.not a{color:var(--altin2);font-weight:700}
+</style>
+</head>
+<body>
+<div class="ust"><div class="marka">HATT-I ZERİN</div><h1>Atölye Defteri</h1></div>
+<div class="kap">
+  <div class="kapasite" id="kapasite">Yükleniyor…</div>
+  <ul class="liste" id="liste"></ul>
+  <div class="not">Her isim hat sanatı hocamızın elinden tek tek yazılır, 925 ayar gümüşe ya da altına işlenir. Siparişiniz için <a href="/tasarla">ücretsiz yazı örneği</a> isteyin.</div>
+</div>
+<script>
+(function(){
+  var URL='https://ntkpveexeoqmgnbfhucn.supabase.co', ANON='sb_publishable_sabWuDWDGUmriSGDYGUohQ_yQA_xgVZ';
+  var AD={alindi:'Sırada',yazi_hazir:'Yazısı hazır',uretimde:'Üretimde',bodrum:'Kutulanıyor',hazir:'Hazır',kargoda:'Kargoda',teslim:'Teslim'};
+  fetch(URL+'/rest/v1/rpc/atolye_defteri',{method:'POST',headers:{'apikey':ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json'},body:'{}'})
+  .then(function(r){return r.json()}).then(function(rows){
+    var kap=document.getElementById('kapasite'), ul=document.getElementById('liste');
+    if(!Array.isArray(rows)||!rows.length){kap.innerHTML='<div class="buyuk">Atölye bu hafta kutulama ve kart gününde</div><div class="alt">Yeni sipariş sırası açık.</div>';return;}
+    var kapasite=rows[0].kapasite||12, dolu=Math.min(rows[0].dolu||0,kapasite), kalan=Math.max(kapasite-dolu,0);
+    kap.innerHTML='<div class="alt">Bu hafta atölye sırası</div><div class="buyuk">'+dolu+' / '+kapasite+' dolu</div><div class="cubuk"><div style="width:'+Math.round(100*dolu/kapasite)+'%"></div></div><div class="alt">'+(kalan>0?('Bu hafta için '+kalan+' yer kaldı.'):'Bu hafta doldu; yeni siparişler gelecek haftaya alınır.')+'</div>';
+    rows.forEach(function(r){var li=document.createElement('li');li.className='satir';li.innerHTML='<div><div class="etiket">'+esc(r.etiket)+'</div><div class="gun">'+tarih(r.gun)+'</div></div><span class="rozet '+esc(r.asama)+'">'+(AD[r.asama]||r.asama)+'</span>';ul.appendChild(li);});
+  }).catch(function(){document.getElementById('kapasite').textContent='Şu an ulaşılamıyor.';});
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function tarih(t){try{return new Date(t).toLocaleDateString('tr-TR',{day:'numeric',month:'long'})}catch(e){return ''}}
+})();
+</script>
+</body>
+</html>

@@ -63,6 +63,8 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
 .termin.yakin{background:#fbe9c4;color:#8a5a00}
 .termin.gec{background:var(--kirmizi2);color:var(--kirmizi)}
 .not{margin-top:12px;padding:12px 14px;background:var(--altin3);border-left:5px solid var(--altin);border-radius:10px;font-size:19px;overflow-wrap:anywhere;white-space:pre-line}
+.gorsel-baslik{margin:14px 0 6px;font-size:17px;font-weight:700;color:var(--altin)}
+.gorsel.yazi img,.buyut img[alt$="yazı görseli"]{background:#fff;padding:8px;border-radius:8px}
 
 /* dugmeler */
 .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:64px;padding:12px 18px;border-radius:16px;border:2px solid transparent;font-size:21px;font-weight:700;text-align:center;text-decoration:none;cursor:pointer;line-height:1.2;background:none}
@@ -541,16 +543,37 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
     dl.appendChild(h('div', null, h('dt', null, ad), h('dd', null, deger)));
   }
   function indirmeLink(url, yazi, dosyaAdi) {
-    return h('a', { class: 'btn btn-kontur', href: url, download: dosyaAdi, rel: 'noopener' }, ikon('indir', 24), yazi);
+    // 11 Eki'26: depolama başka alan adında; tarayıcı 'download'u yok sayıp dosyayı açıyordu → sunucuya "indir" dedirt
+    var indir = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'download=' + encodeURIComponent(dosyaAdi);
+    var a = h('a', { class: 'btn btn-kontur', href: indir, download: dosyaAdi, rel: 'noopener' }, ikon('indir', 24), yazi);
+    a.addEventListener('click', function (e) {                     // Edge SVG'yi sayfa gibi açıyordu: dosyayı çekip kendimiz indiriyoruz
+      if (!window.fetch || !window.URL || !URL.createObjectURL) return;
+      e.preventDefault();
+      fetch(indir).then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.blob(); }).then(function (b) {
+        var u = URL.createObjectURL(new Blob([b], { type: 'application/octet-stream' }));
+        var g = document.createElement('a'); g.href = u; g.download = dosyaAdi; document.body.appendChild(g); g.click();
+        setTimeout(function () { URL.revokeObjectURL(u); g.remove(); }, 4000);
+      }).catch(function () { window.location.href = indir; });
+    });
+    return a;
   }
   function kartAktif(i) {
     var t = terminBilgi(i.termin);
     var kart = h('article', { class: 'kart' });
     kart.appendChild(h('div', { class: 'kart-ust' }, h('span', { class: 'isno' }, i.is_no), rozet(i)));
-    if (i.tasarim_url) kart.appendChild(gorsel(i.tasarim_url, i.is_no + ' tasarım görseli'));
+    if (i.tasarim_url) {
+      kart.appendChild(h('div', { class: 'gorsel-baslik' }, 'Ürün böyle görünecek'));
+      kart.appendChild(gorsel(i.tasarim_url, i.is_no + ' tasarım görseli'));
+    }
+    if (i.png_url) {
+      kart.appendChild(h('div', { class: 'gorsel-baslik' }, 'Kesilecek yazı'));
+      var yazi = gorsel(i.png_url, i.is_no + ' yazı görseli');
+      yazi.classList.add('yazi');
+      kart.appendChild(yazi);
+    }
     kart.appendChild(h('h2', { class: 'urun' }, i.urun));
     var dl = h('dl', { class: 'ozellik' });
-    ozellikSatiri(dl, 'MADEN', i.maden + (i.ayar ? ' · ' + i.ayar : ''));
+    ozellikSatiri(dl, 'MADEN', i.maden + (i.ayar ? ' · ' + i.ayar + (/ayar/i.test(String(i.ayar)) ? '' : ' ayar') : ''));
     ozellikSatiri(dl, 'RENK / KAPLAMA', i.renk);
     ozellikSatiri(dl, 'ZİNCİR', i.zincir);
     ozellikSatiri(dl, 'ÖLÇÜ / UZUNLUK', i.olcu);
@@ -666,8 +689,50 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
     });
   }
 
+  /* 11 Eki'26 (Emre): ayrıntılı fiyat — günün gram fiyatı (Truncgil, CORS açık) × gram × milyem + işçilik = toplam */
+  var FIYAT = { veri: null, zaman: 0, istek: null };
+  function sayiTR(s) { var n = parseFloat(String(s || '').replace(/\./g, '').replace(',', '.')); return isNaN(n) ? null : n; }
+  function gunFiyat() {
+    if (FIYAT.veri && Date.now() - FIYAT.zaman < 30 * 60 * 1000) return Promise.resolve(FIYAT.veri);
+    if (FIYAT.istek) return FIYAT.istek;
+    FIYAT.istek = fetch('https://finans.truncgil.com/today.json', { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        var v = { has: sayiTR(j['gram-has-altin'] && j['gram-has-altin']['Satış']), gumus: sayiTR(j.gumus && j.gumus['Satış']), tarih: j.Update_Date || '' };
+        FIYAT.veri = v; FIYAT.zaman = Date.now(); FIYAT.istek = null; return v;
+      })
+      .catch(function () { FIYAT.istek = null; return null; });
+    return FIYAT.istek;
+  }
+  function madenOrani(i) {                                         // has fiyatına çarpan (milyem)
+    var m = String(i.maden || '').toLocaleLowerCase('tr');
+    if (m.indexOf('altın') >= 0 || m.indexOf('altin') >= 0) {
+      var a = parseInt(String(i.ayar || ''), 10);
+      var tablo = { 8: 0.333, 14: 0.585, 18: 0.750, 22: 0.916, 24: 0.995 };
+      return a && tablo[a] ? { tur: 'altin', oran: tablo[a], ad: a + ' ayar altın' } : null;
+    }
+    if (m.indexOf('gümüş') >= 0 || m.indexOf('gumus') >= 0 || m.indexOf('925') >= 0) return { tur: 'gumus', oran: 0.925, ad: '925 gümüş' };
+    return null;
+  }
+
   function bittiSayfasi(i, duzelt) {
     var d = { blob: null, onizUrl: '', gonderiyor: false, hazirlaniyor: false };
+    var oran = madenOrani(i), fiyat = null;
+    var fiyatKutu = h('div', { class: 'not', style: 'display:none', 'aria-live': 'polite' });
+    function fiyatCiz(g, u) {
+      var birim = fiyat && oran ? (oran.tur === 'altin' ? fiyat.has : fiyat.gumus) : null;
+      if (!birim) { fiyatKutu.style.display = 'none'; return; }
+      var gr = g > 0 ? g : 0, iscilik = (u !== null && !isNaN(u) && u > 0) ? u : 0;
+      var malzeme = gr * oran.oran * birim;
+      fiyatKutu.textContent = '';
+      fiyatKutu.appendChild(h('b', null, 'Ayrıntılı fiyat'));
+      fiyatKutu.appendChild(document.createTextNode(
+        '\nMalzeme (' + oran.ad + '): ' + sayiYaz(gr, 2) + ' g × ' + String(oran.oran).replace('.', ',') + ' × ' + paraYaz(birim) + ' TL = ' + paraYaz(malzeme) + ' TL' +
+        '\nİşçilik: ' + paraYaz(iscilik) + ' TL' +
+        '\nToplam: ' + paraYaz(malzeme + iscilik) + ' TL' +
+        '\n(' + (oran.tur === 'altin' ? 'Has altın' : 'Gümüş') + ' gram fiyatı ' + paraYaz(birim) + ' TL · ' + fiyat.tarih + ')'));
+      fiyatKutu.style.display = 'block';
+    }
     var mevcutFoto = !!(duzelt && i.tarti_url);
     var girdiFoto = h('input', { type: 'file', accept: 'image/*', capture: 'environment', id: 'foto-girdi', class: 'gizli-girdi' });
     var fotoYazi = h('span', null, mevcutFoto ? 'Yeni fotoğraf çek (isteğe bağlı)' : 'Fotoğraf çek');
@@ -692,7 +757,8 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
         adetNotu,
         h('div', { class: 'alan' }, girdiFoto, fotoEtiket, onizKutu),
         h('div', { class: 'alan' }, h('label', { for: 'gram' }, 'Tartıda yazan gram'), gramGirdi, okunan),
-        h('div', { class: 'alan' }, h('label', { for: 'ucret' }, 'İşçilik ücreti (TL) - isteğe bağlı'), ucretGirdi, ucretOkunan),
+        h('div', { class: 'alan' }, h('label', { for: 'ucret' }, 'İşçilik ücreti (TL)'), ucretGirdi, ucretOkunan),
+        fiyatKutu,
         hataKutu,
         h('div', { class: 'eylemler', style: 'margin-top:24px' }, gonder, vazgec)));
     document.body.appendChild(sayfa);
@@ -705,7 +771,8 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
       okunan.textContent = gramGirdi.value.trim() === '' ? '' : (g > 0 ? 'Okunan değer: ' + sayiYaz(g, 2) + ' g' : 'Sayı yazın (ör. 3,2)');
       ucretOkunan.textContent = ucretGirdi.value.trim() === '' ? '' : (u === null || isNaN(u) ? 'Sayı yazın (ör. 1000)' : 'Okunan değer: ' + paraYaz(u) + ' TL');
       var fotoTamam = !!d.blob || mevcutFoto;
-      gonder.disabled = d.gonderiyor || d.hazirlaniyor || !(g > 0) || isNaN(u) || !fotoTamam;
+      gonder.disabled = d.gonderiyor || d.hazirlaniyor || !(g > 0) || u === null || isNaN(u) || !(u > 0) || !fotoTamam;   // 11 Eki'26 Emre: işçilik ücreti ZORUNLU
+      fiyatCiz(g, u);
     }
     girdiFoto.addEventListener('change', async function () {
       var f = girdiFoto.files && girdiFoto.files[0];
@@ -730,12 +797,12 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
       if (d.gonderiyor) return;
       var g = gramCoz(gramGirdi.value), u = tlCoz(ucretGirdi.value);
       if (!(g > 0)) { hataYaz('Tartıda yazan gramı yazın (ör. 3,2).'); return; }
-      if (isNaN(u)) { hataYaz('İşçilik ücreti sayı olmalı (ör. 1000) ya da boş bırakın.'); return; }
+      if (u === null || isNaN(u) || !(u > 0)) { hataYaz('İşçilik ücretini yazın (ör. 1000). Bu alan zorunlu.'); return; }
       if (!d.blob && !mevcutFoto) { hataYaz('Tartı fotoğrafı zorunlu. Önce fotoğraf çekin.'); return; }
       if (g >= 50 && !window.confirm('Gram ' + sayiYaz(g, 2) + ' g görünüyor. Doğru mu?')) return;
       d.gonderiyor = true; hataYaz(''); gonder.disabled = true; gonder.textContent = 'Gönderiliyor…'; vazgec.disabled = true;
       var govde = { oturum: S.oturum, is_id: i.id, gram: g };
-      if (u !== null) govde.ucret = u;
+      govde.ucret = u;
       try { if (d.blob) govde.foto_base64 = await blobB64(d.blob); } catch (e) { d.gonderiyor = false; vazgec.disabled = false; gonder.textContent = 'Gönder'; hataYaz('Fotoğraf okunamadı. Tekrar çekin.'); dogrula(); return; }
       var r = await api('bitti', govde, 120000);
       d.gonderiyor = false; vazgec.disabled = false; gonder.textContent = 'Gönder';
