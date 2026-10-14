@@ -62,6 +62,9 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
 .termin{display:inline-block;margin-left:10px;font-size:15px;font-weight:700;padding:2px 10px;border-radius:999px;background:var(--krem2);color:var(--murekkep2)}
 .termin.yakin{background:#fbe9c4;color:#8a5a00}
 .termin.gec{background:var(--kirmizi2);color:var(--kirmizi)}
+.detay{margin-top:12px;border:2px solid var(--altin);border-radius:12px;padding:6px 12px}
+.detay summary{cursor:pointer;font-size:19px;font-weight:700;padding:10px 0;color:var(--altin2,#8a6519)}
+.detay summary:focus-visible{outline:3px solid var(--altin);outline-offset:3px}
 .not{margin-top:12px;padding:12px 14px;background:var(--altin3);border-left:5px solid var(--altin);border-radius:10px;font-size:19px;overflow-wrap:anywhere;white-space:pre-line}
 .gorsel-baslik{margin:14px 0 6px;font-size:17px;font-weight:700;color:var(--altin)}
 .gorsel.yazi img,.buyut img[alt$="yazı görseli"]{background:#fff;padding:8px;border-radius:8px}
@@ -612,10 +615,27 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
     if (i.atolye_ucret != null) ozellikSatiri(dl, 'İŞÇİLİK', paraYaz(i.atolye_ucret) + ' TL');
     if (i.bitti_zaman) ozellikSatiri(dl, 'BİTTİ', tarihSaat(i.bitti_zaman));
     kart.appendChild(dl);
+    kart.appendChild(detayBolumu(i));
     if (i.durum === 'bitti') {
       kart.appendChild(h('button', { class: 'btn btn-kontur kucuk', type: 'button', onclick: function () { bittiSayfasi(i, true); } }, 'Gramı / ücreti düzelt'));
     }
     return kart;
+  }
+  /* 14 Eki'26 (Emre): biten işte de sipariş detayı görünsün; Sinan Abi bitirdiği işin rengini/notunu göremeyip arıyordu */
+  function detayBolumu(i) {
+    var d = h('details', { class: 'detay' }, h('summary', null, 'Sipariş detayları'));
+    if (i.tasarim_url) { d.appendChild(h('div', { class: 'gorsel-baslik' }, 'Ürün böyle görünecekti')); d.appendChild(gorsel(i.tasarim_url, i.is_no + ' tasarım görseli')); }
+    if (i.png_url) { var y = gorsel(i.png_url, i.is_no + ' yazı görseli'); y.classList.add('yazi'); d.appendChild(h('div', { class: 'gorsel-baslik' }, 'Kesilen yazı')); d.appendChild(y); }
+    var dl = h('dl', { class: 'ozellik' });
+    ozellikSatiri(dl, 'MADEN', (i.maden || '') + (i.ayar ? ' · ' + i.ayar + (/ayar/i.test(String(i.ayar)) ? '' : ' ayar') : ''));
+    ozellikSatiri(dl, 'RENK / KAPLAMA', i.renk);
+    ozellikSatiri(dl, 'ZİNCİR', i.zincir);
+    ozellikSatiri(dl, 'ÖLÇÜ / UZUNLUK', i.olcu);
+    ozellikSatiri(dl, 'ADET', i.adet != null ? String(i.adet) : '');
+    if (i.termin) ozellikSatiri(dl, 'TERMİN', tarihSaat(i.termin));
+    d.appendChild(dl);
+    if (i.notlar) d.appendChild(h('div', { class: 'not' }, h('b', null, 'Not: '), i.notlar));
+    return d;
   }
 
   async function durumYap(i, yeni, dugme) {
