@@ -1,6 +1,7 @@
 {
   "haftalik": 56,
+  "elle": false,
   "kalan": 3,
-  "guncelleme": "2026-10-12T22:20:00+03:00",
-  "not": "Emre 12 Eki: gunde 8, haftalik 56; kalan denetmence gunluk oynatilir (4-3-2-1, sonra yeniden acilir)."
+  "guncelleme": "2026-10-16T12:10:00+03:00",
+  "not": "Emre 16 Eki KANUN: sayaç her gün kendiliğinden değişir (sayfadaki formül: Pzt 46-47 ... Cuma 53, Cmt 54, Pazar 55 dolu). Elle sayı için elle:true + kalan."
 }

@@ -49,10 +49,13 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
   .then(function(r){return r.json()}).then(function(rows){
     var kap=document.getElementById('kapasite'), ul=document.getElementById('liste');
     if(!Array.isArray(rows)||!rows.length){kap.innerHTML='<div class="buyuk">Atölye bu hafta kutulama ve kart gününde</div><div class="alt">Yeni sipariş sırası açık.</div>';return;}
-    // Haftalık sıra: tek kaynak /kapasite.json (haftalik 56, kalan denetmence günlük oynatılır) — Emre 12 Eki'26.
-    var gun=new Date().getDay(); var KALAN={1:4,2:4,3:3,4:3,5:2,6:2,0:1}[gun];
-    var kapasite=56, kalan=KALAN;
-    if(window.__KAP){kapasite=Number(window.__KAP.haftalik)||56; kalan=Math.max(0,Number(window.__KAP.kalan)||0);}
+    // Haftalık sıra (Emre 16 Eki'26 KANUN: sayı HER GÜN değişir, donmuş sayı 'kandırıyorlar' hissi verir).
+    // Pazartesi 46-47 dolu, gün gün artar, Cuma 53, Cumartesi 54, Pazar 55 (1 yer); Pzt-Çar 0/1 oynama tarihten gelir (herkes aynı sayıyı görür).
+    // kapasite.json yalnız {"elle":true,"kalan":N} ise elle sayıyı kullanır.
+    var bugun=new Date(), gun=(bugun.getDay()+6)%7;
+    var tohum=bugun.getFullYear()*10000+(bugun.getMonth()+1)*100+bugun.getDate();
+    var kapasite=56, dolu=Math.min(55,[46,48,50,52,53,54,55][gun]+(gun<3?(tohum*7919)%2:0)), kalan=kapasite-dolu;
+    if(window.__KAP&&window.__KAP.elle){kapasite=Number(window.__KAP.haftalik)||56; kalan=Math.max(0,Number(window.__KAP.kalan)||0);}
     var dolu=Math.max(0,kapasite-kalan);
     kap.innerHTML='<div class="alt">Bu hafta atölye sırası</div><div class="buyuk">'+dolu+' / '+kapasite+' dolu</div><div class="cubuk"><div style="width:'+Math.round(100*dolu/kapasite)+'%"></div></div><div class="alt">'+(kalan>0?('Bu hafta için '+kalan+' yer kaldı.'):'Bu hafta doldu; yeni siparişler gelecek haftaya alınır.')+'</div>';
     rows.forEach(function(r){var li=document.createElement('li');li.className='satir';li.innerHTML='<div><div class="etiket">'+esc(r.etiket)+'</div><div class="gun">'+tarih(r.gun)+'</div></div><span class="rozet '+esc(r.asama)+'">'+(AD[r.asama]||r.asama)+'</span>';ul.appendChild(li);});
