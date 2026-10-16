@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#211b15">
+<title>Atölye kaydınız · Hatt-ı Zerin</title>
+<link rel="icon" href="/icon.png">
+<style>
+:root{--krem:#f6efe0;--kagit:#fffbf2;--cizgi:#dccfae;--altin:#b3862b;--altin2:#8a6519;--altin3:#f3e6bd;--murekkep:#211b15;--murekkep2:#4f453a;--soluk:#85796a;--yesil:#2b7a4b;--yesil2:#dff0e5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--krem);color:var(--murekkep);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh}
+h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
+.ust{background:var(--murekkep);color:var(--krem);padding:calc(14px + env(safe-area-inset-top)) 16px 14px;border-bottom:3px solid var(--altin);text-align:center}
+.marka{font-family:Georgia,serif;font-size:12px;letter-spacing:.22em;color:var(--altin3)}
+.ust h1{font-size:22px;margin-top:4px}
+.kap{max-width:560px;margin:0 auto;padding:18px 16px 60px}
+.kart{background:var(--kagit);border:1px solid var(--cizgi);border-radius:18px;padding:18px;box-shadow:0 2px 12px rgba(61,42,10,.08)}
+.etiket{font-family:Georgia,serif;font-size:20px;margin-bottom:4px}
+.alt{color:var(--soluk);font-size:14px}
+.adimlar{list-style:none;margin:18px 0 0;padding:0}
+.adim{display:flex;gap:14px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed var(--cizgi)}
+.adim:last-child{border-bottom:0}
+.nokta{flex:none;width:28px;height:28px;border-radius:50%;border:2px solid var(--cizgi);background:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--soluk)}
+.adim.oldu .nokta{background:var(--yesil);border-color:var(--yesil);color:#fff}
+.adim.simdi .nokta{background:var(--altin);border-color:var(--altin);color:#fff;box-shadow:0 0 0 4px var(--altin3)}
+.adim.simdi .ad{font-weight:700}
+.adim .ad{font-size:17px}
+.adim .aciklama{color:var(--soluk);font-size:14px}
+.kargo{margin-top:14px;padding:14px;background:var(--yesil2);border-radius:12px;font-size:16px}
+.kargo a{color:var(--yesil);font-weight:700}
+.not{margin-top:16px;color:var(--murekkep2);font-size:15px}
+.hata{padding:18px;text-align:center;color:var(--murekkep2)}
+.defter{display:block;margin-top:18px;text-align:center;color:var(--altin2);font-weight:700;text-decoration:none}
+.sira{margin-top:10px;font-size:15px;color:var(--murekkep2)}
+.el{margin-top:16px;padding:14px;border:1px solid var(--cizgi);border-radius:12px;background:#fff;font-size:14px;color:var(--murekkep2)}
+.adim.sonra{opacity:.5}
+.el b{color:var(--murekkep)}
+.el a{color:var(--altin2)}
+</style>
+</head>
+<body>
+<div class="ust"><div class="marka">HATT-I ZERİN</div><h1 id="baslik">Atölye kaydınız</h1></div>
+<div class="kap">
+  <div id="icerik" class="kart"><div class="hata">Yükleniyor…</div></div>
+  <div class="el"><b>El işçiliği hakkında bilgilendirme</b><br>Ürününüz, hat sanatı hocamızın yazısından atölyede tamamen elle işlenir. Yazıdaki çok ince çizgiler gümüşte aynı incelikte bırakılırsa kullanım sırasında kopabileceği için, hocamız bu noktalarda <b>kalınlaştırma ve küçük düzeltmeler yapma hakkını saklı tutar</b>. Bu nedenle takıda, onayladığınız yazıdan küçük farklar olabilir; bu el işçiliğinin doğasıdır ve ayıp sayılmaz. Ayrıntı: <a href="/sozlesme/">mesafeli satış sözleşmesi, Madde 4</a>.</div>
+  <a class="defter" href="/atolye-defteri/">Atölye defterine bakın →</a>
+</div>
+<script>
+(function(){
+  var URL='https://ntkpveexeoqmgnbfhucn.supabase.co', ANON='sb_publishable_sabWuDWDGUmriSGDYGUohQ_yQA_xgVZ';
+  var ADIMLAR=[
+    ['odeme_bekleniyor','Siparişiniz oluşturuldu','Dekontunuz bekleniyor. Dekont gelince siparişiniz onaylanır ve hocamız isminizi kaleme alır inşallah; bütün süreci, kargonun kapınıza gelişine kadar bu sayfadan izleyebilirsiniz.'],
+    ['alindi','Ödemeniz alındı, siparişiniz onaylandı','Hocamız isminizi kaleme alıyor inşallah.'],
+    ['yazi_hazir','Yazınız hazırlandı','Hat sanatı hocamız yazıyı tamamladı, atölye sırasına girdi.'],
+    ['uretimde','Üretimde','Yazınız 925 ayar gümüşe / altına işleniyor.'],
+    ['bodrum','Atölyeden çıktı, Bodrum\'da hazırlanıyor','Kutusu, el yazısı kartı ve sertifikası ekleniyor.'],
+    ['kargoda','Kargoda','Takip numarası geldiğinde burada görünecek.']
+  ];
+  var BEKLE=[
+    ['odeme_bekleniyor','Yeriniz ayrıldı','Bilgileriniz kaydedildi; hocamızın atölye takviminde yeriniz sizi bekliyor. Karar verdiğinizde bu sayfadan kaldığımız yerden devam ederiz.'],
+    ['alindi','Ödemeniz alındı','Hocamız isminizi kaleme alıyor inşallah.'],
+    ['yazi_hazir','Yazınız hazırlandı','Hat sanatı hocamız yazıyı tamamladı, atölye sırasına girdi.'],
+    ['uretimde','Üretimde','Yazınız 925 ayar gümüşe / altına işleniyor.'],
+    ['bodrum','Atölyeden çıktı, Bodrum'da hazırlanıyor','Kutusu, el yazısı kartı ve sertifikası ekleniyor.'],
+    ['kargoda','Kargoda','Takip numarası geldiğinde burada görünecek.']
+  ];
+  var YENI=location.pathname.indexOf('/yeriniz')===0;
+  var k=new URLSearchParams(location.search).get('k');
+  var ic=document.getElementById('icerik');
+  if(!k){ic.innerHTML='<div class="hata">Bağlantı eksik. Size gönderilen bağlantıyı kullanın.</div>';return;}
+  fetch(URL+'/rest/v1/rpc/takip_durum',{method:'POST',headers:{'apikey':ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json'},body:JSON.stringify({k:k})})
+  .then(function(r){return r.json()}).then(function(rows){
+    var d=Array.isArray(rows)?rows[0]:rows;
+    if(!d){ic.innerHTML='<div class="hata">'+(YENI?'Kayıt':'Sipariş')+' bulunamadı. Bağlantıyı kontrol edin ya da bize yazın.</div>';return;}
+    var bekle=d.asama==='odeme_bekleniyor';
+    var AD=bekle?BEKLE:ADIMLAR;
+    document.title=(bekle?'Atölye kaydınız':'Siparişiniz')+' · Hatt-ı Zerin';
+    document.getElementById('baslik').textContent=bekle?'Atölye kaydınız':'Siparişiniz';
+    var asama=d.asama==='hazir'?'bodrum':d.asama; if(d.asama==='teslim')asama='kargoda';
+    var idx=AD.findIndex(function(a){return a[0]===asama}); if(idx<0)idx=0;
+    var h='<div class="etiket">'+esc(d.etiket||(bekle?'Atölye kaydınız':'Siparişiniz'))+'</div><div class="alt">Son güncelleme: '+tarih(d.guncelleme)+'</div>';
+    if(d.asama==='hazir')h+='<div class="sira">Ürününüz hazır, bugün kargoya veriliyor.</div>';
+    else if(asama!=='kargoda'&&d.sira)h+='<div class="sira">Atölye sırası: '+d.sira+'. sıradasınız.</div>';
+    h+='<ul class="adimlar">';
+    AD.forEach(function(a,i){var c=i<idx?'oldu':(i===idx?'simdi':(bekle?'sonra':''));var ac=a[2];if(a[0]==='kargoda'&&d.takip_no)ac='Takip numarası aşağıda.';h+='<li class="adim '+c+'"><div class="nokta">'+(i<idx?'✓':(i+1))+'</div><div><div class="ad">'+a[1]+'</div>'+(i===idx?'<div class="aciklama">'+ac+'</div>':'')+'</div></li>'});
+    h+='</ul>';
+    if(d.takip_no){h+='<div class="kargo">'+esc(d.kargo_firma||'Kargo')+' takip no: <b>'+esc(d.takip_no)+'</b>'+(d.kargo_link?' · <a href="'+esc(d.kargo_link)+'" target="_blank" rel="noopener">Takip et</a>':'')+'</div>';}
+    if(d.tahmini_teslim&&!d.takip_no)h+='<div class="not">Tahmini teslim: '+tarih(d.tahmini_teslim)+'</div>';
+    h+='<div class="not">Her ürün hat sanatı hocamızın elinden, tek tek üretilir. Sorunuz olursa WhatsApp\'tan yazabilirsiniz.</div>';
+    ic.innerHTML=h;
+  }).catch(function(){ic.innerHTML='<div class="hata">Şu an ulaşılamıyor, biraz sonra tekrar deneyin.</div>';});
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function tarih(t){try{return new Date(t).toLocaleDateString('tr-TR',{day:'numeric',month:'long'})}catch(e){return ''}}
+})();
+</script>
+</body>
+</html>

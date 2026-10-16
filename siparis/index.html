@@ -36,12 +36,13 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
 .defter{display:block;margin-top:18px;text-align:center;color:var(--altin2);font-weight:700;text-decoration:none}
 .sira{margin-top:10px;font-size:15px;color:var(--murekkep2)}
 .el{margin-top:16px;padding:14px;border:1px solid var(--cizgi);border-radius:12px;background:#fff;font-size:14px;color:var(--murekkep2)}
+.adim.sonra{opacity:.5}
 .el b{color:var(--murekkep)}
 .el a{color:var(--altin2)}
 </style>
 </head>
 <body>
-<div class="ust"><div class="marka">HATT-I ZERİN</div><h1>Siparişiniz</h1></div>
+<div class="ust"><div class="marka">HATT-I ZERİN</div><h1 id="baslik">Siparişiniz</h1></div>
 <div class="kap">
   <div id="icerik" class="kart"><div class="hata">Yükleniyor…</div></div>
   <div class="el"><b>El işçiliği hakkında bilgilendirme</b><br>Ürününüz, hat sanatı hocamızın yazısından atölyede tamamen elle işlenir. Yazıdaki çok ince çizgiler gümüşte aynı incelikte bırakılırsa kullanım sırasında kopabileceği için, hocamız bu noktalarda <b>kalınlaştırma ve küçük düzeltmeler yapma hakkını saklı tutar</b>. Bu nedenle takıda, onayladığınız yazıdan küçük farklar olabilir; bu el işçiliğinin doğasıdır ve ayıp sayılmaz. Ayrıntı: <a href="/sozlesme/">mesafeli satış sözleşmesi, Madde 4</a>.</div>
@@ -58,20 +59,33 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
     ['bodrum','Atölyeden çıktı, Bodrum\'da hazırlanıyor','Kutusu, el yazısı kartı ve sertifikası ekleniyor.'],
     ['kargoda','Kargoda','Takip numarası geldiğinde burada görünecek.']
   ];
+  var BEKLE=[
+    ['odeme_bekleniyor','Yeriniz ayrıldı','Bilgileriniz kaydedildi; hocamızın atölye takviminde yeriniz sizi bekliyor. Karar verdiğinizde bu sayfadan kaldığımız yerden devam ederiz.'],
+    ['alindi','Ödemeniz alındı','Hocamız isminizi kaleme alıyor inşallah.'],
+    ['yazi_hazir','Yazınız hazırlandı','Hat sanatı hocamız yazıyı tamamladı, atölye sırasına girdi.'],
+    ['uretimde','Üretimde','Yazınız 925 ayar gümüşe / altına işleniyor.'],
+    ['bodrum','Atölyeden çıktı, Bodrum'da hazırlanıyor','Kutusu, el yazısı kartı ve sertifikası ekleniyor.'],
+    ['kargoda','Kargoda','Takip numarası geldiğinde burada görünecek.']
+  ];
+  var YENI=location.pathname.indexOf('/yeriniz')===0;
   var k=new URLSearchParams(location.search).get('k');
   var ic=document.getElementById('icerik');
   if(!k){ic.innerHTML='<div class="hata">Bağlantı eksik. Size gönderilen bağlantıyı kullanın.</div>';return;}
   fetch(URL+'/rest/v1/rpc/takip_durum',{method:'POST',headers:{'apikey':ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json'},body:JSON.stringify({k:k})})
   .then(function(r){return r.json()}).then(function(rows){
     var d=Array.isArray(rows)?rows[0]:rows;
-    if(!d){ic.innerHTML='<div class="hata">Sipariş bulunamadı. Bağlantıyı kontrol edin ya da bize yazın.</div>';return;}
+    if(!d){ic.innerHTML='<div class="hata">'+(YENI?'Kayıt':'Sipariş')+' bulunamadı. Bağlantıyı kontrol edin ya da bize yazın.</div>';return;}
+    var bekle=d.asama==='odeme_bekleniyor';
+    var AD=bekle?BEKLE:ADIMLAR;
+    document.title=(bekle?'Atölye kaydınız':'Siparişiniz')+' · Hatt-ı Zerin';
+    document.getElementById('baslik').textContent=bekle?'Atölye kaydınız':'Siparişiniz';
     var asama=d.asama==='hazir'?'bodrum':d.asama; if(d.asama==='teslim')asama='kargoda';
-    var idx=ADIMLAR.findIndex(function(a){return a[0]===asama}); if(idx<0)idx=0;
-    var h='<div class="etiket">'+esc(d.etiket||'Siparişiniz')+'</div><div class="alt">Son güncelleme: '+tarih(d.guncelleme)+'</div>';
+    var idx=AD.findIndex(function(a){return a[0]===asama}); if(idx<0)idx=0;
+    var h='<div class="etiket">'+esc(d.etiket||(bekle?'Atölye kaydınız':'Siparişiniz'))+'</div><div class="alt">Son güncelleme: '+tarih(d.guncelleme)+'</div>';
     if(d.asama==='hazir')h+='<div class="sira">Ürününüz hazır, bugün kargoya veriliyor.</div>';
     else if(asama!=='kargoda'&&d.sira)h+='<div class="sira">Atölye sırası: '+d.sira+'. sıradasınız.</div>';
     h+='<ul class="adimlar">';
-    ADIMLAR.forEach(function(a,i){var c=i<idx?'oldu':(i===idx?'simdi':'');var ac=a[2];if(a[0]==='kargoda'&&d.takip_no)ac='Takip numarası aşağıda.';h+='<li class="adim '+c+'"><div class="nokta">'+(i<idx?'✓':(i+1))+'</div><div><div class="ad">'+a[1]+'</div>'+(i===idx?'<div class="aciklama">'+ac+'</div>':'')+'</div></li>'});
+    AD.forEach(function(a,i){var c=i<idx?'oldu':(i===idx?'simdi':(bekle?'sonra':''));var ac=a[2];if(a[0]==='kargoda'&&d.takip_no)ac='Takip numarası aşağıda.';h+='<li class="adim '+c+'"><div class="nokta">'+(i<idx?'✓':(i+1))+'</div><div><div class="ad">'+a[1]+'</div>'+(i===idx?'<div class="aciklama">'+ac+'</div>':'')+'</div></li>'});
     h+='</ul>';
     if(d.takip_no){h+='<div class="kargo">'+esc(d.kargo_firma||'Kargo')+' takip no: <b>'+esc(d.takip_no)+'</b>'+(d.kargo_link?' · <a href="'+esc(d.kargo_link)+'" target="_blank" rel="noopener">Takip et</a>':'')+'</div>';}
     if(d.tahmini_teslim&&!d.takip_no)h+='<div class="not">Tahmini teslim: '+tarih(d.tahmini_teslim)+'</div>';
