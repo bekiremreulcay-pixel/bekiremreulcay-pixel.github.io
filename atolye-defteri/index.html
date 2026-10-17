@@ -43,7 +43,7 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
 <script>
 (function(){
   var URL='https://ntkpveexeoqmgnbfhucn.supabase.co', ANON='sb_publishable_sabWuDWDGUmriSGDYGUohQ_yQA_xgVZ';
-  var AD={alindi:'Sırada',yazi_hazir:'Yazısı hazır',uretimde:'Üretimde',bodrum:'Kutulanıyor',hazir:'Hazır',kargoda:'Kargoda',teslim:'Teslim'};
+  var AD={odeme_bekleniyor:'Yeri ayrıldı',alindi:'Sırada',yazi_hazir:'Yazısı hazır',uretimde:'Üretimde',bodrum:'Kutulanıyor',hazir:'Hazır',kargoda:'Kargoda',teslim:'Teslim'};
   fetch('/kapasite.json?t='+Math.floor(Date.now()/600000),{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){window.__KAP=j}).catch(function(){})
   .then(function(){return fetch(URL+'/rest/v1/rpc/atolye_defteri',{method:'POST',headers:{'apikey':ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json'},body:'{}'})})
   .then(function(r){return r.json()}).then(function(rows){
@@ -54,7 +54,9 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
     // kapasite.json yalnız {"elle":true,"kalan":N} ise elle sayıyı kullanır.
     var bugun=new Date(), gun=(bugun.getDay()+6)%7;
     var tohum=bugun.getFullYear()*10000+(bugun.getMonth()+1)*100+bugun.getDate();
-    var kapasite=56, dolu=Math.min(55,[46,48,50,52,53,54,55][gun]+(gun<3?(tohum*7919)%2:0)), kalan=kapasite-dolu;
+    // 17 Eki (Emre): sayaç canlı olsun — gün tabanı + gün içi saat + BUGÜN açılan her kayıt +1; en çok 55 (1 yer kalır).
+    var bugunKayit=rows.filter(function(r){try{var d=new Date(r.gun);return d.toDateString()===bugun.toDateString();}catch(e){return false}}).length;
+    var kapasite=56, dolu=Math.min(55,[42,44,46,48,50,51,52][gun]+Math.floor(bugun.getHours()/6)+bugunKayit+(tohum*7919)%2), kalan=kapasite-dolu;
     if(window.__KAP&&window.__KAP.elle){kapasite=Number(window.__KAP.haftalik)||56; kalan=Math.max(0,Number(window.__KAP.kalan)||0);}
     var dolu=Math.max(0,kapasite-kalan);
     kap.innerHTML='<div class="alt">Bu hafta atölye sırası</div><div class="buyuk">'+dolu+' / '+kapasite+' dolu</div><div class="cubuk"><div style="width:'+Math.round(100*dolu/kapasite)+'%"></div></div><div class="alt">'+(kalan>0?('Bu hafta için '+kalan+' yer kaldı.'):'Bu hafta doldu; yeni siparişler gelecek haftaya alınır.')+'</div>';
