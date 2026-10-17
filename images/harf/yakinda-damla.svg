@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Görsel yakında">
+<rect width="800" height="1000" fill="#F2EDE3"/>
+<rect x="40" y="40" width="720" height="920" fill="none" stroke="#B8975A" stroke-width="1.5"/>
+<rect x="56" y="56" width="688" height="888" fill="none" stroke="#B8975A" stroke-width=".6" opacity=".6"/>
+<line x1="340" y1="470" x2="460" y2="470" stroke="#B8975A" stroke-width="1"/>
+<text x="400" y="430" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="46" fill="#2A241B" letter-spacing="2">Damla kompozisyon</text>
+<text x="400" y="525" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="30" fill="#8A7C68">Görsel yakında</text>
+<text x="400" y="590" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#8A7C68" letter-spacing="3">HOCAMIZ ELİYLE YAZAR</text>
+</svg>

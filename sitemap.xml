@@ -1,38 +1,394 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 <url>
 <loc>https://hattizerin.com/</loc>
-<lastmod>2026-10-17T08:37:48.048Z</lastmod>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
 <changefreq>weekly</changefreq>
 <priority>1</priority>
 </url>
 <url>
-<loc>https://hattizerin.com/tasarla</loc>
-<lastmod>2026-10-17T08:37:48.048Z</lastmod>
+<loc>https://hattizerin.com/en</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.9</priority>
 </url>
 <url>
+<loc>https://hattizerin.com/tasarla</loc>
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.9</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/koleksiyon/harfin-hikayesi</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/koleksiyon/harfin-hikayesi" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/koleksiyon/harfin-hikayesi" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/koleksiyon/harfin-hikayesi</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/koleksiyon/harfin-hikayesi" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/koleksiyon/harfin-hikayesi" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/koleksiyon/isim-kolyeleri</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/koleksiyon/isim-kolyeleri" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/koleksiyon/isim-kolyeleri" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/koleksiyon/isim-kolyeleri</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/koleksiyon/isim-kolyeleri" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/koleksiyon/isim-kolyeleri" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/koleksiyon/bileklikler</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/koleksiyon/bileklikler" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/koleksiyon/bileklikler" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/koleksiyon/bileklikler</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/koleksiyon/bileklikler" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/koleksiyon/bileklikler" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/koleksiyon/esarp-igneleri</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/koleksiyon/esarp-igneleri" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/koleksiyon/esarp-igneleri" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/koleksiyon/esarp-igneleri</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/koleksiyon/esarp-igneleri" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/koleksiyon/esarp-igneleri" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/koleksiyon/harf-urunleri</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/koleksiyon/harf-urunleri" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/koleksiyon/harf-urunleri" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/koleksiyon/harf-urunleri</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/koleksiyon/harf-urunleri" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/koleksiyon/harf-urunleri" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/koleksiyon/altin</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/koleksiyon/altin" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/koleksiyon/altin" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/koleksiyon/altin</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/koleksiyon/altin" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/koleksiyon/altin" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/urun/zarif-isim-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/zarif-isim-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/zarif-isim-kolye" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/urun/zarif-isim-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/zarif-isim-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/zarif-isim-kolye" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/urun/saltanat-isim-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/saltanat-isim-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/saltanat-isim-kolye" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/urun/saltanat-isim-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/saltanat-isim-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/saltanat-isim-kolye" />
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/urun/isim-bileklik</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/isim-bileklik" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/isim-bileklik" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/urun/isim-bileklik</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/isim-bileklik" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/isim-bileklik" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/urun/isim-esarp-ignesi</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/isim-esarp-ignesi" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/isim-esarp-ignesi" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/urun/isim-esarp-ignesi</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/isim-esarp-ignesi" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/isim-esarp-ignesi" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/urun/harf-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/harf-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/harf-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/urun/harf-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/harf-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/harf-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/urun/cift-harf-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/cift-harf-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/cift-harf-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/urun/cift-harf-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/cift-harf-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/cift-harf-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/urun/altin-isim-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/altin-isim-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/altin-isim-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/urun/altin-isim-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/altin-isim-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/altin-isim-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/urun/vav-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/vav-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/vav-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/urun/vav-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/vav-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/vav-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/urun/elif-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/elif-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/elif-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/urun/elif-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/elif-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/elif-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/urun/elif-vav-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/elif-vav-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/elif-vav-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/urun/elif-vav-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/elif-vav-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/elif-vav-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/urun/harf-lale-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/harf-lale-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/harf-lale-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/urun/harf-lale-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/harf-lale-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/harf-lale-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/urun/arapca-bas-harf-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/arapca-bas-harf-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/arapca-bas-harf-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/urun/arapca-bas-harf-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/arapca-bas-harf-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/arapca-bas-harf-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/urun/damla-kompozisyon-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/damla-kompozisyon-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/damla-kompozisyon-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/en/urun/damla-kompozisyon-kolye</loc>
+<xhtml:link rel="alternate" hreflang="tr" href="https://hattizerin.com/urun/damla-kompozisyon-kolye" />
+<xhtml:link rel="alternate" hreflang="en" href="https://hattizerin.com/en/urun/damla-kompozisyon-kolye" />
+<lastmod>2026-10-17T08:44:08.601Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.7200000000000001</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/kurum</loc>
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/rehber</loc>
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.6</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/rehber/hafizlik-hediyesi-ne-alinir</loc>
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/rehber/icazet-toreni-hediyesi</loc>
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/rehber/vav-harfinin-anlami</loc>
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+<url>
+<loc>https://hattizerin.com/rehber/hat-sanati-isim-kolye-nedir</loc>
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+<url>
 <loc>https://hattizerin.com/kargo</loc>
-<lastmod>2026-10-17T08:37:48.048Z</lastmod>
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 <url>
+<loc>https://hattizerin.com/sozlesme</loc>
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
+<changefreq>yearly</changefreq>
+<priority>0.3</priority>
+</url>
+<url>
 <loc>https://hattizerin.com/iade</loc>
-<lastmod>2026-10-17T08:37:48.048Z</lastmod>
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 <url>
 <loc>https://hattizerin.com/gizlilik</loc>
-<lastmod>2026-10-17T08:37:48.048Z</lastmod>
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
 <changefreq>yearly</changefreq>
 <priority>0.3</priority>
 </url>
 <url>
 <loc>https://hattizerin.com/bakim</loc>
-<lastmod>2026-10-17T08:37:48.048Z</lastmod>
+<lastmod>2026-10-17T08:44:08.600Z</lastmod>
 <changefreq>yearly</changefreq>
 <priority>0.4</priority>
 </url>
