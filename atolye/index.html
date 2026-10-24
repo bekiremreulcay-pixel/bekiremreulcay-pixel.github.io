@@ -35,7 +35,8 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
 
 /* sekmeler */
 .sekmeler-kap{position:sticky;top:0;z-index:20;background:var(--krem);border-bottom:1px solid var(--cizgi)}
-.sekmeler{max-width:640px;margin:0 auto;padding:10px 14px 8px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr);gap:8px}
+.sekmeler{max-width:640px;margin:0 auto;padding:10px 14px 8px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.borc{max-width:640px;margin:0 auto;padding:0 14px 8px;font-weight:700;font-size:15px;text-align:center}
 .sekme{min-height:64px;border-radius:14px;border:2px solid var(--cizgi);background:var(--kagit);font-weight:700;font-size:15px;line-height:1.15;padding:6px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;overflow-wrap:anywhere}
 .sekme .sayi{font-size:24px;font-family:Georgia,serif;line-height:1}
 .sekme[aria-selected=true]{background:var(--murekkep);color:var(--krem);border-color:var(--murekkep)}
@@ -412,7 +413,7 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
   }
 
   /* ---------- ana ekran ---------- */
-  var SEKMELER = [['yeni', 'Yeni işler'], ['uretim', 'Üretimde'], ['biten', 'Bitenler · Tartı']];
+  var SEKMELER = [['yeni', 'Yeni işler'], ['uretim', 'Üretimde'], ['biten', 'Bitenler · Tartı'], ['odenen', 'Ödenenler']];   // 18 Eki'26 Emre: ödeme gümüş gramıyla
   function anaEkran() {
     temizle(kok);
     kok.appendChild(h('header', { class: 'ust' }, h('div', { class: 'ust-ic' },
@@ -423,7 +424,7 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
       sek.appendChild(h('button', { class: 'sekme', type: 'button', role: 'tab', id: 'sekme-' + s[0], onclick: function () { sekmeDegis(s[0]); } },
         h('span', { class: 'sayi', id: 'say-' + s[0] }, '–'), h('span', null, s[1])));
     });
-    kok.appendChild(h('div', { class: 'sekmeler-kap' }, sek));
+    kok.appendChild(h('div', { class: 'sekmeler-kap' }, sek, h('div', { class: 'borc', id: 'borc' }, '')));
     kok.appendChild(h('main', { class: 'kap' },
       h('div', { id: 'uyari' }),
       h('div', { id: 'liste' }, h('div', { class: 'don', role: 'status', 'aria-label': 'Yükleniyor' })),
@@ -440,10 +441,11 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
     SEKMELER.forEach(function (s) { var b = el('sekme-' + s[0]); if (b) b.setAttribute('aria-selected', S.sekme === s[0] ? 'true' : 'false'); });
   }
   function grupla() {
-    var yeni = [], uretim = [], biten = [];
+    var yeni = [], uretim = [], biten = [], odenen = [];
     S.isler.forEach(function (i) {
       if (i.durum === 'yeni') yeni.push(i);
       else if (i.durum === 'basladi' || i.durum === 'yapiliyor') uretim.push(i);
+      else if (i.odendi) odenen.push(i);
       else biten.push(i);
     });
     function terminSira(a, b) {
@@ -455,27 +457,31 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
     yeni.sort(terminSira);
     uretim.sort(function (a, b) { if (a.durum !== b.durum) return a.durum === 'yapiliyor' ? -1 : 1; return terminSira(a, b); });
     biten.sort(function (a, b) { return String(b.bitti_zaman || '').localeCompare(String(a.bitti_zaman || '')) || (b.id - a.id); });
-    return { yeni: yeni, uretim: uretim, biten: biten };
+    odenen.sort(function (a, b) { return String(b.bitti_zaman || '').localeCompare(String(a.bitti_zaman || '')) || (b.id - a.id); });
+    return { yeni: yeni, uretim: uretim, biten: biten, odenen: odenen };
   }
   function listeCiz() {
     var kap = el('liste'); if (!kap) return;
     var g = grupla();
-    ['yeni', 'uretim', 'biten'].forEach(function (a) { var e = el('say-' + a); if (e) e.textContent = String(g[a].length); });
+    ['yeni', 'uretim', 'biten', 'odenen'].forEach(function (a) { var e = el('say-' + a); if (e) e.textContent = String(g[a].length); });
+    var borcG = 0; g.biten.forEach(function (i) { borcG += Number(i.gram) || 0; });
+    var be = el('borc'); if (be) be.textContent = 'Anlık borç: ' + sayiYaz(borcG, 2) + ' g gümüş (' + g.biten.length + ' iş)';
     temizle(kap);
     var secili = g[S.sekme];
     if (S.sonYukleme === 0) { kap.appendChild(h('div', { class: 'don', role: 'status', 'aria-label': 'Yükleniyor' })); return; }
     if (!secili.length) {
       var msg = S.sekme === 'yeni' ? ['Yeni iş yok', 'Yeni bir iş geldiğinde burada görünür.']
         : S.sekme === 'uretim' ? ['Üretimde iş yok', 'Bir işe "Başladım" deyince burada görünür.']
-        : ['Henüz biten iş yok', 'Bitti dediğiniz işler tartı fotoğrafıyla burada listelenir.'];
+        : S.sekme === 'odenen' ? ['Ödenen iş yok', 'Gümüşü ödenen işler burada listelenir.']
+        : ['Ödenmemiş biten iş yok', 'Bitti dediğiniz işler tartı fotoğrafıyla burada listelenir; ödenince Ödenenler sekmesine geçer.'];
       kap.appendChild(h('div', { class: 'bos' }, h('b', null, msg[0]), msg[1]));
       return;
     }
-    if (S.sekme === 'biten') {
+    if (S.sekme === 'biten' || S.sekme === 'odenen') {
       var top = 0; secili.forEach(function (i) { top += Number(i.gram) || 0; });
-      kap.appendChild(h('div', { class: 'ozet' }, secili.length + ' iş · toplam ' + sayiYaz(top, 2) + ' g'));
+      kap.appendChild(h('div', { class: 'ozet' }, secili.length + ' iş · toplam ' + sayiYaz(top, 2) + ' g' + (S.sekme === 'odenen' ? ' · ödendi' : ' · ödenecek')));
     }
-    secili.forEach(function (i) { kap.appendChild(S.sekme === 'biten' ? kartBiten(i) : kartAktif(i)); });
+    secili.forEach(function (i) { kap.appendChild(S.sekme === 'biten' || S.sekme === 'odenen' ? kartBiten(i) : kartAktif(i)); });
   }
 
   /* gorsel URL'leri 1 saat gecerli; ayni dosyanin URL'sini 40 dk koru (gereksiz yeniden yukleme olmasin) */
@@ -608,16 +614,20 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
   function kartBiten(i) {
     var kart = h('article', { class: 'kart' });
     kart.appendChild(h('div', { class: 'kart-ust' }, h('span', { class: 'isno' }, i.is_no), rozet(i)));
-    if (i.tarti_url) kart.appendChild(gorsel(i.tarti_url, i.is_no + ' tartı fotoğrafı'));
+    /* 18 Eki'26 (Emre): tasarım ile biten ürün YAN YANA — 'gönderdiğimiz taslakla bu benziyor mu' kontrolü */
+    if (i.tarti_url && i.tasarim_url) {
+      kart.appendChild(h('div', { style: 'display:grid;grid-template-columns:1fr 1fr;gap:8px' },
+        h('div', null, h('div', { class: 'gorsel-baslik' }, 'Gönderilen tasarım'), gorsel(i.tasarim_url, i.is_no + ' tasarım görseli')),
+        h('div', null, h('div', { class: 'gorsel-baslik' }, 'Biten ürün (tartı)'), gorsel(i.tarti_url, i.is_no + ' tartı fotoğrafı'))));
+    } else if (i.tarti_url) kart.appendChild(gorsel(i.tarti_url, i.is_no + ' tartı fotoğrafı'));
     kart.appendChild(h('h2', { class: 'urun' }, i.urun + (i.adet > 1 ? ' × ' + i.adet : '')));
     var dl = h('dl', { class: 'ozellik' });
     dl.appendChild(h('div', null, h('dt', null, 'GRAM'), h('dd', null, h('span', { class: 'buyuk' }, i.gram != null ? sayiYaz(i.gram, 2) + ' g' : '–'))));
-    if (i.atolye_ucret != null) ozellikSatiri(dl, 'İŞÇİLİK', paraYaz(i.atolye_ucret) + ' TL');
     if (i.bitti_zaman) ozellikSatiri(dl, 'BİTTİ', tarihSaat(i.bitti_zaman));
     kart.appendChild(dl);
     kart.appendChild(detayBolumu(i));
     if (i.durum === 'bitti') {
-      kart.appendChild(h('button', { class: 'btn btn-kontur kucuk', type: 'button', onclick: function () { bittiSayfasi(i, true); } }, 'Gramı / ücreti düzelt'));
+      kart.appendChild(h('button', { class: 'btn btn-kontur kucuk', type: 'button', onclick: function () { bittiSayfasi(i, true); } }, 'Gramı düzelt'));
     }
     return kart;
   }
@@ -775,10 +785,9 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
         h('div', { class: 'sayfa-ust' }, h('div', { class: 'baslik' }, i.is_no + ' · ' + i.urun), kapatDugme),
         h('div', { class: 'kural' }, 'Ürünü tartının üstüne düzgün koyun. Tartının ekranındaki gram okunsun. TEK fotoğraf çekin.'),
         adetNotu,
+        i.tasarim_url ? h('div', { class: 'alan' }, h('div', { class: 'gorsel-baslik' }, 'Gönderilen tasarım: ürün buna benziyor mu? Kontrol edin'), gorsel(i.tasarim_url, i.is_no + ' tasarım görseli')) : null,   // 18 Eki'26 Emre
         h('div', { class: 'alan' }, girdiFoto, fotoEtiket, onizKutu),
         h('div', { class: 'alan' }, h('label', { for: 'gram' }, 'Tartıda yazan gram'), gramGirdi, okunan),
-        h('div', { class: 'alan' }, h('label', { for: 'ucret' }, 'İşçilik ücreti (TL)'), ucretGirdi, ucretOkunan),
-        fiyatKutu,
         hataKutu,
         h('div', { class: 'eylemler', style: 'margin-top:24px' }, gonder, vazgec)));
     document.body.appendChild(sayfa);
@@ -789,10 +798,8 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
     function dogrula() {
       var g = gramCoz(gramGirdi.value), u = tlCoz(ucretGirdi.value);
       okunan.textContent = gramGirdi.value.trim() === '' ? '' : (g > 0 ? 'Okunan değer: ' + sayiYaz(g, 2) + ' g' : 'Sayı yazın (ör. 3,2)');
-      ucretOkunan.textContent = ucretGirdi.value.trim() === '' ? '' : (u === null || isNaN(u) ? 'Sayı yazın (ör. 1000)' : 'Okunan değer: ' + paraYaz(u) + ' TL');
       var fotoTamam = !!d.blob || mevcutFoto;
-      gonder.disabled = d.gonderiyor || d.hazirlaniyor || !(g > 0) || u === null || isNaN(u) || !(u > 0) || !fotoTamam;   // 11 Eki'26 Emre: işçilik ücreti ZORUNLU
-      fiyatCiz(g, u);
+      gonder.disabled = d.gonderiyor || d.hazirlaniyor || !(g > 0) || !fotoTamam;   // 18 Eki'26 Emre: işçilik/fiyat YOK, yalnız gram (gümüşle ödeme)
     }
     girdiFoto.addEventListener('change', async function () {
       var f = girdiFoto.files && girdiFoto.files[0];
@@ -810,19 +817,16 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
       d.hazirlaniyor = false; girdiFoto.value = ''; dogrula();
     });
     gramGirdi.addEventListener('input', dogrula);
-    ucretGirdi.addEventListener('input', dogrula);
     vazgec.addEventListener('click', function () { if (!d.gonderiyor) kaldir.kapat(); });
     kapatDugme.addEventListener('click', function () { if (!d.gonderiyor) kaldir.kapat(); });
     gonder.addEventListener('click', async function () {
       if (d.gonderiyor) return;
       var g = gramCoz(gramGirdi.value), u = tlCoz(ucretGirdi.value);
       if (!(g > 0)) { hataYaz('Tartıda yazan gramı yazın (ör. 3,2).'); return; }
-      if (u === null || isNaN(u) || !(u > 0)) { hataYaz('İşçilik ücretini yazın (ör. 1000). Bu alan zorunlu.'); return; }
       if (!d.blob && !mevcutFoto) { hataYaz('Tartı fotoğrafı zorunlu. Önce fotoğraf çekin.'); return; }
       if (g >= 50 && !window.confirm('Gram ' + sayiYaz(g, 2) + ' g görünüyor. Doğru mu?')) return;
       d.gonderiyor = true; hataYaz(''); gonder.disabled = true; gonder.textContent = 'Gönderiliyor…'; vazgec.disabled = true;
       var govde = { oturum: S.oturum, is_id: i.id, gram: g };
-      govde.ucret = u;
       try { if (d.blob) govde.foto_base64 = await blobB64(d.blob); } catch (e) { d.gonderiyor = false; vazgec.disabled = false; gonder.textContent = 'Gönder'; hataYaz('Fotoğraf okunamadı. Tekrar çekin.'); dogrula(); return; }
       var r = await api('bitti', govde, 120000);
       d.gonderiyor = false; vazgec.disabled = false; gonder.textContent = 'Gönder';
